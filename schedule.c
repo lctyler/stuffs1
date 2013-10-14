@@ -1,4 +1,4 @@
-//Prog2 lolz
+////Prog2 lolz
 
 
 #include <sys/time.h?
