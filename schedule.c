@@ -11,8 +11,8 @@
 #define MAX_ARGUMENTS 10
 
 typedef struct input {
-   char exec[MAX_ARG_LENGTH];
-   char *arg[MAX_ARGUMENTS];
+   char *exec;
+   char **arg;
    int numArgs; 
 
 } input;
@@ -35,10 +35,25 @@ void alarm (unsigned int seconds) {
 }
 
 void parseInputs(input **inputs, int * num, char **argv, int argc) {
-   int i = 2;
-   inputs[0] = malloc(sizeof(inputs)); 
+   int i = 3;
+   int inputCnt = 0; 
+   inputs[inputCnt] = malloc(sizeof(inputs)); 
+   inputs[inputCnt]->exec = argv[2];
+   inputs[inputCnt]->numArgs = 0;  
    for (i; i < argc; i++) {
+      if(strcmp(":", argv[i])) {
+       //if the next argv is not a :
+       inputs[inputCnt]->arg[inputs[inputCnt]->numArgs++] = argv[i]; 
        
+      }
+      else {
+       // if it is a :
+	//make a new inputs struct
+       inputs[++inputCnt] = malloc(sizeof(inputs)); 
+       inputs[inputCnt]->exec = argv[i]; 
+       inputs[inputCnt]->numArgs = 0; 
+
+      }       
      
 
 
